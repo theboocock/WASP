@@ -57,4 +57,5 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
-
+examples/*
+reference/*

@@ -1,14 +1,14 @@
 
 # Set these environment vars to point to
 # your local installation of WASP
-WASP=$HOME/proj/WASP
+WASP=/media/theboocock/data/james/allele_specific_expression/testing/WASP/
 DATA_DIR=$WASP/examples/example_data
 
 # These environment vars point to the reference genome and bowtie2.
 # in the examples below, the reference genome is assumed
 # to be indexed for use with bowtie2
-INDEX=$HOME/data1/external/GRC37/combined/bowtie2_index/hg37
-BOWTIE=$HOME/anaconda2/bin/bowtie2
+INDEX=/media/theboocock/data/references/human/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome
+BOWTIE=$HOME/anaconda3/bin/bowtie2
 
 
 $WASP/snp2h5/snp2h5 --chrom $DATA_DIR/chromInfo.hg19.txt \
