@@ -197,14 +197,12 @@ void vcf_parse_haplotypes(VCFInfo *vcf_info, char *haplotypes,
   expect_haps = vcf_info->n_sample * 2;
   
   n_haps = 0;
-  
   while((tok = strsep(&cur, delim)) != NULL) {
     /* Each genotype string is delimited by ':'
      * The GT portions of the string are delimited by '/' or '|'
      * '|' indicates phased, '/' indicates unphased.
      */
     util_strncpy(gt_str, tok, sizeof(gt_str));
-    
     i = 0;
     inner_cur = gt_str;
     while((i <= gt_idx) && (inner_tok = strsep(&inner_cur, inner_delim)) != NULL) {
@@ -213,7 +211,7 @@ void vcf_parse_haplotypes(VCFInfo *vcf_info, char *haplotypes,
 	if(n != 2) {
 	  /* try with '/' separator instead */
 	  n = sscanf(inner_tok, "%d/%d", &hap1, &hap2);
-
+     /* try with no separator i.e it must be haploid  GT = 0 or 1 */
 	  if(n == 2) {
 	    if(warn_phase) {
 	      my_warn("%s:%d: some genotypes are unphased (delimited "
@@ -228,8 +226,12 @@ void vcf_parse_haplotypes(VCFInfo *vcf_info, char *haplotypes,
 		      inner_tok);
 	      warn_parse = FALSE;
 	    }
+        if (n == 1){
+          hap2 = hap1; 
+        }else{
 	    hap1 = VCF_GTYPE_MISSING;
 	    hap2 = VCF_GTYPE_MISSING;
+        }
 	  }
 	}
 

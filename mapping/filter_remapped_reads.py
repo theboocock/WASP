@@ -55,7 +55,7 @@ def filter_reads(remap_bam):
     bad_reads = set([])
     
     for read in remap_bam:
-        if read.is_secondary:
+        if read.is_secondary or read.is_supplementary:
             # only keep primary alignments and discard 'secondary' alignments
             continue
         
@@ -128,8 +128,9 @@ def filter_reads(remap_bam):
                 # all alternative versions of this read
                 # mapped to correct location
                 if orig_name in keep_reads:
-                    raise ValueError("saw read %s more times than "
-                                     "expected in input file" % orig_name)
+                    #raise ValueError("saw read %s more times than "
+                    #                 "expected in input file" % orig_name)
+                    continue
                 keep_reads.add(orig_name)
 
                 # remove read from counts to save mem

@@ -628,8 +628,8 @@ def filter_reads(files, max_seqs=MAX_SEQS_DEFAULT, max_snps=MAX_SNPS_DEFAULT,
                 snp_tab.read_file(snp_filename)
             
             sys.stderr.write("processing reads\n")
-
-        if read.is_secondary:
+        # Added for new SAM spec
+        if read.is_secondary or read.is_supplementary:
             # this is a secondary alignment (i.e. read was aligned more than
             # once and this has align score that <= best score)
             read_stats.discard_secondary += 1
